@@ -1,7 +1,7 @@
 import {
-    BadRequestException,
-    ConflictException,
-    Injectable,
+  BadRequestException,
+  ConflictException,
+  Injectable,
 } from '@nestjs/common';
 import { Movement } from '../../domain/entities/movement.entity.js';
 import { WalletBalance } from '../../domain/entities/wallet-balance.entity.js';

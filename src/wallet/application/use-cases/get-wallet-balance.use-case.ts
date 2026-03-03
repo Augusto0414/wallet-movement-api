@@ -9,12 +9,9 @@ export class GetWalletBalanceUseCase {
   ) {}
 
   async execute(walletId: string): Promise<WalletBalance> {
-    const balance =
-      await this.walletBalanceRepository.findByWalletId(walletId);
+    const balance = await this.walletBalanceRepository.findByWalletId(walletId);
     if (!balance) {
-      throw new NotFoundException(
-        `Wallet with id ${walletId} not found`,
-      );
+      throw new NotFoundException(`Wallet with id ${walletId} not found`);
     }
     return balance;
   }
