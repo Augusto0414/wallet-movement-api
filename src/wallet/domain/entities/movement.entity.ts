@@ -41,10 +41,7 @@ export class Movement {
     MovementStatus,
     MovementStatus[]
   > = {
-    [MovementStatus.CREATED]: [
-      MovementStatus.COMPLETED,
-      MovementStatus.FAILED,
-    ],
+    [MovementStatus.CREATED]: [MovementStatus.COMPLETED, MovementStatus.FAILED],
     [MovementStatus.COMPLETED]: [],
     [MovementStatus.FAILED]: [],
   };

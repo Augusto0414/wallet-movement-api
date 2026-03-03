@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../shared/prisma.service.js';
 import { Movement } from '../../domain/entities/movement.entity.js';
-import { MovementRepository } from '../../domain/repositories/movement.repository.js';
 import { MovementStatus } from '../../domain/enums/movement-status.enum.js';
 import { MovementType } from '../../domain/enums/movement-type.enum.js';
+import { MovementRepository } from '../../domain/repositories/movement.repository.js';
 
 @Injectable()
 export class PrismaMovementRepository extends MovementRepository {

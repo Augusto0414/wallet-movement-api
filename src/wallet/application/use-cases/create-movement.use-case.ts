@@ -1,15 +1,15 @@
 import {
-  Injectable,
-  BadRequestException,
-  ConflictException,
+    BadRequestException,
+    ConflictException,
+    Injectable,
 } from '@nestjs/common';
-import { CreateMovementDto } from '../dto/create-movement.dto.js';
 import { Movement } from '../../domain/entities/movement.entity.js';
 import { WalletBalance } from '../../domain/entities/wallet-balance.entity.js';
-import { MovementRepository } from '../../domain/repositories/movement.repository.js';
-import { WalletBalanceRepository } from '../../domain/repositories/wallet-balance.repository.js';
 import { MovementStatus } from '../../domain/enums/movement-status.enum.js';
 import { MovementType } from '../../domain/enums/movement-type.enum.js';
+import { MovementRepository } from '../../domain/repositories/movement.repository.js';
+import { WalletBalanceRepository } from '../../domain/repositories/wallet-balance.repository.js';
+import { CreateMovementDto } from '../dto/create-movement.dto.js';
 
 @Injectable()
 export class CreateMovementUseCase {
@@ -27,9 +27,7 @@ export class CreateMovementUseCase {
 
     const existing = await this.movementRepository.findById(dto.id);
     if (existing) {
-      throw new ConflictException(
-        `Movement with id ${dto.id} already exists`,
-      );
+      throw new ConflictException(`Movement with id ${dto.id} already exists`);
     }
 
     const walletBalance = await this.walletBalanceRepository.findByWalletId(
@@ -63,12 +61,10 @@ export class CreateMovementUseCase {
     walletBalance: WalletBalance | null,
   ): Promise<void> {
     if (!walletBalance) {
-      const existingMovements =
-        await this.movementRepository.findByWalletId(dto.walletId);
-      if (
-        existingMovements.length === 0 &&
-        dto.type !== MovementType.DEPOSIT
-      ) {
+      const existingMovements = await this.movementRepository.findByWalletId(
+        dto.walletId,
+      );
+      if (existingMovements.length === 0 && dto.type !== MovementType.DEPOSIT) {
         throw new BadRequestException(
           'The first movement for a wallet must be a DEPOSIT',
         );

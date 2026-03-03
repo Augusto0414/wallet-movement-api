@@ -1,6 +1,6 @@
 import { IsEnum, IsNotEmpty, IsNumber, IsString, Min } from 'class-validator';
-import { MovementType } from '../../domain/enums/movement-type.enum.js';
 import { MovementStatus } from '../../domain/enums/movement-status.enum.js';
+import { MovementType } from '../../domain/enums/movement-type.enum.js';
 
 export class CreateMovementDto {
   @IsString()

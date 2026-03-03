@@ -1,17 +1,17 @@
 import {
-  NotFoundException,
   BadRequestException,
+  NotFoundException,
 } from '@nestjs/common';
-import { ProcessWebhookUseCase } from './process-webhook.use-case.js';
-import { WebhookEventDto } from '../dto/webhook-event.dto.js';
-import { Movement } from '../../domain/entities/movement.entity.js';
-import { MovementStatus } from '../../domain/enums/movement-status.enum.js';
-import { MovementType } from '../../domain/enums/movement-type.enum.js';
-import { WalletBalance } from '../../domain/entities/wallet-balance.entity.js';
-import { InMemoryMovementRepository } from '../../infrastructure/repositories/in-memory-movement.repository.js';
-import { InMemoryWalletBalanceRepository } from '../../infrastructure/repositories/in-memory-wallet-balance.repository.js';
-import { InMemoryCompanyBalanceRepository } from '../../infrastructure/repositories/in-memory-company-balance.repository.js';
-import { InMemoryWebhookEventRepository } from '../../infrastructure/repositories/in-memory-webhook-event.repository.js';
+import { Movement } from '../../src/wallet/domain/entities/movement.entity.js';
+import { WalletBalance } from '../../src/wallet/domain/entities/wallet-balance.entity.js';
+import { MovementStatus } from '../../src/wallet/domain/enums/movement-status.enum.js';
+import { MovementType } from '../../src/wallet/domain/enums/movement-type.enum.js';
+import { InMemoryCompanyBalanceRepository } from '../../src/wallet/infrastructure/repositories/in-memory-company-balance.repository.js';
+import { InMemoryMovementRepository } from '../../src/wallet/infrastructure/repositories/in-memory-movement.repository.js';
+import { InMemoryWalletBalanceRepository } from '../../src/wallet/infrastructure/repositories/in-memory-wallet-balance.repository.js';
+import { InMemoryWebhookEventRepository } from '../../src/wallet/infrastructure/repositories/in-memory-webhook-event.repository.js';
+import { WebhookEventDto } from '../../src/wallet/application/dto/webhook-event.dto.js';
+import { ProcessWebhookUseCase } from '../../src/wallet/application/use-cases/process-webhook.use-case.js';
 
 describe('ProcessWebhookUseCase', () => {
   let useCase: ProcessWebhookUseCase;
@@ -189,11 +189,9 @@ describe('ProcessWebhookUseCase', () => {
   it('should reject invalid status transition', async () => {
     await seedDeposit();
 
-    // First complete it
     const dto1 = makeWebhookDto({ status: MovementStatus.COMPLETED });
     await useCase.execute(dto1);
 
-    // Then try to fail it
     const dto2 = makeWebhookDto({
       eventId: 'evt-002',
       status: MovementStatus.FAILED,

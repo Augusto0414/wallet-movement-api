@@ -1,19 +1,18 @@
 import {
-  Injectable,
-  NotFoundException,
-  BadRequestException,
-  ConflictException,
+    BadRequestException,
+    Injectable,
+    NotFoundException
 } from '@nestjs/common';
-import { WebhookEventDto } from '../dto/webhook-event.dto.js';
 import { Movement } from '../../domain/entities/movement.entity.js';
-import { WebhookEvent } from '../../domain/entities/webhook-event.entity.js';
 import { WalletBalance } from '../../domain/entities/wallet-balance.entity.js';
-import { MovementRepository } from '../../domain/repositories/movement.repository.js';
-import { WalletBalanceRepository } from '../../domain/repositories/wallet-balance.repository.js';
-import { CompanyBalanceRepository } from '../../domain/repositories/company-balance.repository.js';
-import { WebhookEventRepository } from '../../domain/repositories/webhook-event.repository.js';
+import { WebhookEvent } from '../../domain/entities/webhook-event.entity.js';
 import { MovementStatus } from '../../domain/enums/movement-status.enum.js';
 import { MovementType } from '../../domain/enums/movement-type.enum.js';
+import { CompanyBalanceRepository } from '../../domain/repositories/company-balance.repository.js';
+import { MovementRepository } from '../../domain/repositories/movement.repository.js';
+import { WalletBalanceRepository } from '../../domain/repositories/wallet-balance.repository.js';
+import { WebhookEventRepository } from '../../domain/repositories/webhook-event.repository.js';
+import { WebhookEventDto } from '../dto/webhook-event.dto.js';
 
 @Injectable()
 export class ProcessWebhookUseCase {
@@ -45,7 +44,7 @@ export class ProcessWebhookUseCase {
       );
     }
 
-    const newStatus = dto.status as MovementStatus;
+    const newStatus = dto.status;
 
     if (!movement.canTransitionTo(newStatus)) {
       throw new BadRequestException(

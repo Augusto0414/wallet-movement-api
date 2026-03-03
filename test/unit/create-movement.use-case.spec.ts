@@ -1,11 +1,11 @@
 import { BadRequestException, ConflictException } from '@nestjs/common';
-import { CreateMovementUseCase } from './create-movement.use-case.js';
-import { CreateMovementDto } from '../dto/create-movement.dto.js';
-import { MovementStatus } from '../../domain/enums/movement-status.enum.js';
-import { MovementType } from '../../domain/enums/movement-type.enum.js';
-import { InMemoryMovementRepository } from '../../infrastructure/repositories/in-memory-movement.repository.js';
-import { InMemoryWalletBalanceRepository } from '../../infrastructure/repositories/in-memory-wallet-balance.repository.js';
-import { WalletBalance } from '../../domain/entities/wallet-balance.entity.js';
+import { WalletBalance } from '../../src/wallet/domain/entities/wallet-balance.entity.js';
+import { MovementStatus } from '../../src/wallet/domain/enums/movement-status.enum.js';
+import { MovementType } from '../../src/wallet/domain/enums/movement-type.enum.js';
+import { InMemoryMovementRepository } from '../../src/wallet/infrastructure/repositories/in-memory-movement.repository.js';
+import { InMemoryWalletBalanceRepository } from '../../src/wallet/infrastructure/repositories/in-memory-wallet-balance.repository.js';
+import { CreateMovementDto } from '../../src/wallet/application/dto/create-movement.dto.js';
+import { CreateMovementUseCase } from '../../src/wallet/application/use-cases/create-movement.use-case.js';
 
 describe('CreateMovementUseCase', () => {
   let useCase: CreateMovementUseCase;
@@ -18,7 +18,9 @@ describe('CreateMovementUseCase', () => {
     useCase = new CreateMovementUseCase(movementRepo, walletBalanceRepo);
   });
 
-  const makeDepositDto = (overrides?: Partial<CreateMovementDto>): CreateMovementDto => {
+  const makeDepositDto = (
+    overrides?: Partial<CreateMovementDto>,
+  ): CreateMovementDto => {
     const dto = new CreateMovementDto();
     dto.id = 'mov-001';
     dto.userId = 'usr-001';
@@ -30,7 +32,9 @@ describe('CreateMovementUseCase', () => {
     return Object.assign(dto, overrides);
   };
 
-  const makeDebitDto = (overrides?: Partial<CreateMovementDto>): CreateMovementDto => {
+  const makeDebitDto = (
+    overrides?: Partial<CreateMovementDto>,
+  ): CreateMovementDto => {
     const dto = new CreateMovementDto();
     dto.id = 'mov-002';
     dto.userId = 'usr-001';
@@ -74,22 +78,24 @@ describe('CreateMovementUseCase', () => {
   });
 
   it('should reject DEBIT when insufficient balance', async () => {
-    // Create wallet with some balance
     const depositDto = makeDepositDto();
     await useCase.execute(depositDto);
 
-    // Simulate balance = 0 (CREATED doesn't apply balance)
     const debitDto = makeDebitDto({ amount: 100 });
 
-    await expect(useCase.execute(debitDto)).rejects.toThrow(BadRequestException);
-    await expect(useCase.execute(debitDto)).rejects.toThrow('Insufficient balance');
+    await expect(useCase.execute(debitDto)).rejects.toThrow(
+      BadRequestException,
+    );
+    await expect(useCase.execute(debitDto)).rejects.toThrow(
+      'Insufficient balance',
+    );
   });
 
   it('should allow DEBIT when balance is sufficient', async () => {
-    // Setup wallet with balance
-    await walletBalanceRepo.save(new WalletBalance({ walletId: 'wal-001', balance: 200 }));
+    await walletBalanceRepo.save(
+      new WalletBalance({ walletId: 'wal-001', balance: 200 }),
+    );
 
-    // First deposit to establish wallet
     const depositDto = makeDepositDto();
     await useCase.execute(depositDto);
 
