@@ -50,40 +50,47 @@ src/
 ## Setup
 
 ### Prerequisites
+
 - Node.js 18+
 - pnpm
-- PostgreSQL database
+- Docker (para la base de datos)
 
-### Installation
+### 1. Instalar dependencias
 
 ```bash
 pnpm install
 ```
 
-### Environment
+### 2. Configurar entorno
+
+Renombra `.env.example` a `.env`. El archivo ya contiene la cadena de conexión que apunta al contenedor Docker:
 
 ```bash
-cp .env.example .env
-# Edit .env with your PostgreSQL connection string
+mv .env.example .env
 ```
 
-### Database
+> No necesitas modificar nada, los valores por defecto coinciden con el `docker-compose`.
+
+### 3. Levantar la base de datos
 
 ```bash
-# Generate Prisma Client
+docker compose -f docker/docker-compose.yml up -d
+```
+
+### 4. Ejecutar migraciones
+
+```bash
 npx prisma generate
-
-# Run migrations
-npx prisma migrate dev --name init
+npx prisma migrate dev
 ```
 
-### Run
+### 5. Iniciar la aplicación
 
 ```bash
-# Development
+# Desarrollo
 pnpm start:dev
 
-# Production
+# Producción
 pnpm build
 pnpm start:prod
 ```
