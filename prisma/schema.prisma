@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum MovementType {
+  DEPOSIT
+  DEBIT
+  FORCE_DEBIT
+}
+
+enum MovementStatus {
+  CREATED
+  COMPLETED
+  FAILED
+}
+
+model Movement {
+  id        String         @id
+  userId    String
+  walletId  String
+  type      MovementType
+  amount    Float
+  cost      Float
+  status    MovementStatus @default(CREATED)
+  reason    String?
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@index([walletId])
+  @@index([userId])
+}
+
+model WalletBalance {
+  walletId  String   @id
+  balance   Float    @default(0)
+  updatedAt DateTime @updatedAt
+}
+
+model CompanyBalance {
+  id          String   @id @default("singleton")
+  totalIncome Float    @default(0)
+  updatedAt   DateTime @updatedAt
+}
+
+model WebhookEvent {
+  eventId     String   @id
+  movementId  String
+  type        String
+  amount      Float
+  cost        Float
+  status      String
+  processedAt DateTime
+  reason      String?
+  createdAt   DateTime @default(now())
+
+  @@index([movementId])
+}
