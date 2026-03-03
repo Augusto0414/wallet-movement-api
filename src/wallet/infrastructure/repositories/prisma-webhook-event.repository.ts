@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { WebhookEvent as PrismaWebhookEvent } from '../../../../generated/prisma/client.js';
+import { WebhookEvent as PrismaWebhookEvent } from '../../../generated/prisma/client.js';
 import { PrismaService } from '../../../shared/prisma.service.js';
 import { WebhookEvent } from '../../domain/entities/webhook-event.entity.js';
 import { WebhookEventRepository } from '../../domain/repositories/webhook-event.repository.js';

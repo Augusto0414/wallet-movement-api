@@ -1,11 +1,11 @@
 import {
-    IsDateString,
-    IsEnum,
-    IsNotEmpty,
-    IsNumber,
-    IsOptional,
-    IsString,
-    Min,
+  IsDateString,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Min,
 } from 'class-validator';
 import { MovementStatus } from '../../domain/enums/movement-status.enum.js';
 import { MovementType } from '../../domain/enums/movement-type.enum.js';

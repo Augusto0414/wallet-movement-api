@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: wallet-postgres
+    restart: unless-stopped
+    ports:
+      - '5438:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: webhook_db
+    volumes:
+      - wallet_pg_data:/var/lib/postgresql/data
+
+volumes:
+  wallet_pg_data:

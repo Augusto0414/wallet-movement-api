@@ -50,40 +50,47 @@ src/
 ## Setup
 
 ### Prerequisites
+
 - Node.js 18+
 - pnpm
-- PostgreSQL database
+- Docker (para la base de datos)
 
-### Installation
+### 1. Instalar dependencias
 
 ```bash
 pnpm install
 ```
 
-### Environment
+### 2. Configurar entorno
+
+Renombra `.env.example` a `.env`. El archivo ya contiene la cadena de conexión que apunta al contenedor Docker:
 
 ```bash
-cp .env.example .env
-# Edit .env with your PostgreSQL connection string
+mv .env.example .env
 ```
 
-### Database
+> No necesitas modificar nada, los valores por defecto coinciden con el `docker-compose`.
+
+### 3. Levantar la base de datos
 
 ```bash
-# Generate Prisma Client
+docker compose -f docker/docker-compose.yml up -d
+```
+
+### 4. Ejecutar migraciones
+
+```bash
 npx prisma generate
-
-# Run migrations
-npx prisma migrate dev --name init
+npx prisma migrate dev
 ```
 
-### Run
+### 5. Iniciar la aplicación
 
 ```bash
-# Development
+# Desarrollo
 pnpm start:dev
 
-# Production
+# Producción
 pnpm build
 pnpm start:prod
 ```
@@ -155,9 +162,10 @@ Retrieve total company income from fees.
 ## Design Decisions
 
 - **Abstract repository classes** instead of interfaces for DI compatibility with NestJS — allows `useClass` provider binding.
-- **In-memory repositories** kept alongside Prisma for unit testing without database dependency.
+- **In-memory repositories** in `test/helpers/` for unit testing without database dependency.
 - **Company balance** uses a singleton row pattern (`id = "singleton"`) — simple and effective for single-company scope.
 - **Webhook events** stored separately for traceability and idempotency check, with flexible `movementId` reference (not rigid FK) to allow future N:1 mapping.
 - **Movement effects** (balance updates) only applied at `COMPLETED` status — `CREATED` is a reservation only.
 - **`class-validator`** used for DTO validation with `ValidationPipe` globally configured.
-- **Prisma ORM** with PostgreSQL for type-safe database access and easy migrations.
+- **Prisma v7 with driver adapter** (`@prisma/adapter-pg` + `pg`) for PostgreSQL — required by Prisma v7 instead of the legacy `datasourceUrl` pattern.
+- **CommonJS module system** (`module: "commonjs"` in tsconfig) for full NestJS + Prisma v7 compatibility.

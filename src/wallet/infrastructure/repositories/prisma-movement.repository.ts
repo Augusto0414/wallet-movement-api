@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Movement as PrismaMovement } from '../../../../generated/prisma/client.js';
+import { Movement as PrismaMovement } from '../../../generated/prisma/client.js';
 import { PrismaService } from '../../../shared/prisma.service.js';
 import { Movement } from '../../domain/entities/movement.entity.js';
 import { MovementStatus } from '../../domain/enums/movement-status.enum.js';

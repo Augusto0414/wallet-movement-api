@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { WalletBalance as PrismaWalletBalance } from '../../../../generated/prisma/client.js';
+import { WalletBalance as PrismaWalletBalance } from '../../../generated/prisma/client.js';
 import { PrismaService } from '../../../shared/prisma.service.js';
 import { WalletBalance } from '../../domain/entities/wallet-balance.entity.js';
 import { WalletBalanceRepository } from '../../domain/repositories/wallet-balance.repository.js';
