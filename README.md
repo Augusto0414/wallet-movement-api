@@ -155,9 +155,10 @@ Retrieve total company income from fees.
 ## Design Decisions
 
 - **Abstract repository classes** instead of interfaces for DI compatibility with NestJS — allows `useClass` provider binding.
-- **In-memory repositories** kept alongside Prisma for unit testing without database dependency.
+- **In-memory repositories** in `test/helpers/` for unit testing without database dependency.
 - **Company balance** uses a singleton row pattern (`id = "singleton"`) — simple and effective for single-company scope.
 - **Webhook events** stored separately for traceability and idempotency check, with flexible `movementId` reference (not rigid FK) to allow future N:1 mapping.
 - **Movement effects** (balance updates) only applied at `COMPLETED` status — `CREATED` is a reservation only.
 - **`class-validator`** used for DTO validation with `ValidationPipe` globally configured.
-- **Prisma ORM** with PostgreSQL for type-safe database access and easy migrations.
+- **Prisma v7 with driver adapter** (`@prisma/adapter-pg` + `pg`) for PostgreSQL — required by Prisma v7 instead of the legacy `datasourceUrl` pattern.
+- **CommonJS module system** (`module: "commonjs"` in tsconfig) for full NestJS + Prisma v7 compatibility.
