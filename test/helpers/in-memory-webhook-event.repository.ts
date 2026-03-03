@@ -1,8 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { WebhookEvent } from '../../domain/entities/webhook-event.entity.js';
-import { WebhookEventRepository } from '../../domain/repositories/webhook-event.repository.js';
+import { WebhookEvent } from '../../src/wallet/domain/entities/webhook-event.entity.js';
+import { WebhookEventRepository } from '../../src/wallet/domain/repositories/webhook-event.repository.js';
 
-@Injectable()
 export class InMemoryWebhookEventRepository extends WebhookEventRepository {
   private readonly events = new Map<string, WebhookEvent>();
 

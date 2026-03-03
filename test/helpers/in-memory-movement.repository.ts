@@ -1,8 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { Movement } from '../../domain/entities/movement.entity.js';
-import { MovementRepository } from '../../domain/repositories/movement.repository.js';
+import { Movement } from '../../src/wallet/domain/entities/movement.entity.js';
+import { MovementRepository } from '../../src/wallet/domain/repositories/movement.repository.js';
 
-@Injectable()
 export class InMemoryMovementRepository extends MovementRepository {
   private readonly movements = new Map<string, Movement>();
 

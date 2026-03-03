@@ -1,8 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { WalletBalance } from '../../domain/entities/wallet-balance.entity.js';
-import { WalletBalanceRepository } from '../../domain/repositories/wallet-balance.repository.js';
+import { WalletBalance } from '../../src/wallet/domain/entities/wallet-balance.entity.js';
+import { WalletBalanceRepository } from '../../src/wallet/domain/repositories/wallet-balance.repository.js';
 
-@Injectable()
 export class InMemoryWalletBalanceRepository extends WalletBalanceRepository {
   private readonly balances = new Map<string, WalletBalance>();
 

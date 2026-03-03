@@ -4,8 +4,8 @@ import { CreateMovementUseCase } from '../../src/wallet/application/use-cases/cr
 import { WalletBalance } from '../../src/wallet/domain/entities/wallet-balance.entity.js';
 import { MovementStatus } from '../../src/wallet/domain/enums/movement-status.enum.js';
 import { MovementType } from '../../src/wallet/domain/enums/movement-type.enum.js';
-import { InMemoryMovementRepository } from '../../src/wallet/infrastructure/repositories/in-memory-movement.repository.js';
-import { InMemoryWalletBalanceRepository } from '../../src/wallet/infrastructure/repositories/in-memory-wallet-balance.repository.js';
+import { InMemoryMovementRepository } from '../helpers/in-memory-movement.repository.js';
+import { InMemoryWalletBalanceRepository } from '../helpers/in-memory-wallet-balance.repository.js';
 
 describe('CreateMovementUseCase', () => {
   let useCase: CreateMovementUseCase;

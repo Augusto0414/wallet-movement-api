@@ -5,10 +5,10 @@ import { Movement } from '../../src/wallet/domain/entities/movement.entity.js';
 import { WalletBalance } from '../../src/wallet/domain/entities/wallet-balance.entity.js';
 import { MovementStatus } from '../../src/wallet/domain/enums/movement-status.enum.js';
 import { MovementType } from '../../src/wallet/domain/enums/movement-type.enum.js';
-import { InMemoryCompanyBalanceRepository } from '../../src/wallet/infrastructure/repositories/in-memory-company-balance.repository.js';
-import { InMemoryMovementRepository } from '../../src/wallet/infrastructure/repositories/in-memory-movement.repository.js';
-import { InMemoryWalletBalanceRepository } from '../../src/wallet/infrastructure/repositories/in-memory-wallet-balance.repository.js';
-import { InMemoryWebhookEventRepository } from '../../src/wallet/infrastructure/repositories/in-memory-webhook-event.repository.js';
+import { InMemoryCompanyBalanceRepository } from '../helpers/in-memory-company-balance.repository.js';
+import { InMemoryMovementRepository } from '../helpers/in-memory-movement.repository.js';
+import { InMemoryWalletBalanceRepository } from '../helpers/in-memory-wallet-balance.repository.js';
+import { InMemoryWebhookEventRepository } from '../helpers/in-memory-webhook-event.repository.js';
 
 describe('ProcessWebhookUseCase', () => {
   let useCase: ProcessWebhookUseCase;
