@@ -1,11 +1,11 @@
 import { BadRequestException, ConflictException } from '@nestjs/common';
+import { CreateMovementDto } from '../../src/wallet/application/dto/create-movement.dto.js';
+import { CreateMovementUseCase } from '../../src/wallet/application/use-cases/create-movement.use-case.js';
 import { WalletBalance } from '../../src/wallet/domain/entities/wallet-balance.entity.js';
 import { MovementStatus } from '../../src/wallet/domain/enums/movement-status.enum.js';
 import { MovementType } from '../../src/wallet/domain/enums/movement-type.enum.js';
 import { InMemoryMovementRepository } from '../../src/wallet/infrastructure/repositories/in-memory-movement.repository.js';
 import { InMemoryWalletBalanceRepository } from '../../src/wallet/infrastructure/repositories/in-memory-wallet-balance.repository.js';
-import { CreateMovementDto } from '../../src/wallet/application/dto/create-movement.dto.js';
-import { CreateMovementUseCase } from '../../src/wallet/application/use-cases/create-movement.use-case.js';
 
 describe('CreateMovementUseCase', () => {
   let useCase: CreateMovementUseCase;

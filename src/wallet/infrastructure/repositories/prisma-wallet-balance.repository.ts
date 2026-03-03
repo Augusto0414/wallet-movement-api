@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { WalletBalance as PrismaWalletBalance } from '../../../../generated/prisma/client.js';
 import { PrismaService } from '../../../shared/prisma.service.js';
 import { WalletBalance } from '../../domain/entities/wallet-balance.entity.js';
 import { WalletBalanceRepository } from '../../domain/repositories/wallet-balance.repository.js';
@@ -28,7 +29,7 @@ export class PrismaWalletBalanceRepository extends WalletBalanceRepository {
     return this.toDomain(record);
   }
 
-  private toDomain(record: any): WalletBalance {
+  private toDomain(record: PrismaWalletBalance): WalletBalance {
     return new WalletBalance({
       walletId: record.walletId,
       balance: record.balance,

@@ -19,6 +19,30 @@ export class CreateMovementUseCase {
   ) {}
 
   async execute(dto: CreateMovementDto): Promise<Movement> {
+    if (!dto.id) {
+      throw new BadRequestException('Movement id is required');
+    }
+
+    if (!dto.walletId) {
+      throw new BadRequestException('Wallet id is required');
+    }
+
+    if (!dto.userId) {
+      throw new BadRequestException('User id is required');
+    }
+
+    if (!dto.type) {
+      throw new BadRequestException('Movement type is required');
+    }
+
+    if (dto.amount === undefined || dto.amount === null) {
+      throw new BadRequestException('Movement amount is required');
+    }
+
+    if (dto.cost === undefined || dto.cost === null) {
+      throw new BadRequestException('Movement cost is required');
+    }
+
     if (dto.status !== MovementStatus.CREATED) {
       throw new BadRequestException(
         'Movement must be created with status CREATED',
@@ -62,7 +86,7 @@ export class CreateMovementUseCase {
   ): Promise<void> {
     if (!walletBalance) {
       const existingMovements = await this.movementRepository.findByWalletId(
-        dto.walletId,
+        dto.walletId!,
       );
       if (existingMovements.length === 0 && dto.type !== MovementType.DEPOSIT) {
         throw new BadRequestException(
@@ -81,7 +105,7 @@ export class CreateMovementUseCase {
       dto.type === MovementType.FORCE_DEBIT
     ) {
       const currentBalance = walletBalance?.balance ?? 0;
-      if (currentBalance < dto.amount) {
+      if (currentBalance < dto.amount!) {
         throw new BadRequestException(
           `Insufficient balance. Current: ${currentBalance}, Required: ${dto.amount}`,
         );

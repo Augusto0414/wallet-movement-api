@@ -1,7 +1,7 @@
 import {
     BadRequestException,
     Injectable,
-    NotFoundException
+    NotFoundException,
 } from '@nestjs/common';
 import { Movement } from '../../domain/entities/movement.entity.js';
 import { WalletBalance } from '../../domain/entities/wallet-balance.entity.js';
@@ -26,6 +26,14 @@ export class ProcessWebhookUseCase {
   async execute(
     dto: WebhookEventDto,
   ): Promise<{ message: string; movement: Movement }> {
+    if (!dto.movementId) {
+      throw new BadRequestException('movementId is required');
+    }
+
+    if (!dto.eventId) {
+      throw new BadRequestException('eventId is required');
+    }
+
     const existingEvent = await this.webhookEventRepository.findByEventId(
       dto.eventId,
     );
@@ -45,6 +53,30 @@ export class ProcessWebhookUseCase {
     }
 
     const newStatus = dto.status;
+
+    if (!newStatus) {
+      throw new BadRequestException('status is required');
+    }
+
+    if (!dto.type) {
+      throw new BadRequestException('type is required');
+    }
+
+    if (!dto.amount) {
+      throw new BadRequestException('amount is required');
+    }
+
+    if (!dto.cost) {
+      throw new BadRequestException('cost is required');
+    }
+
+    if (!dto.status) {
+      throw new BadRequestException('status is required');
+    }
+
+    if (!dto.processedAt) {
+      throw new BadRequestException('processedAt is required');
+    }
 
     if (!movement.canTransitionTo(newStatus)) {
       throw new BadRequestException(

@@ -6,18 +6,20 @@ import { MovementRepository } from '../../domain/repositories/movement.repositor
 export class InMemoryMovementRepository extends MovementRepository {
   private readonly movements = new Map<string, Movement>();
 
-  async save(movement: Movement): Promise<Movement> {
+  save(movement: Movement): Promise<Movement> {
     this.movements.set(movement.id, movement);
-    return movement;
+    return Promise.resolve(movement);
   }
 
-  async findById(id: string): Promise<Movement | null> {
-    return this.movements.get(id) ?? null;
+  findById(id: string): Promise<Movement | null> {
+    return Promise.resolve(this.movements.get(id) ?? null);
   }
 
-  async findByWalletId(walletId: string): Promise<Movement[]> {
-    return Array.from(this.movements.values()).filter(
-      (m) => m.walletId === walletId,
+  findByWalletId(walletId: string): Promise<Movement[]> {
+    return Promise.resolve(
+      Array.from(this.movements.values()).filter(
+        (m) => m.walletId === walletId,
+      ),
     );
   }
 }

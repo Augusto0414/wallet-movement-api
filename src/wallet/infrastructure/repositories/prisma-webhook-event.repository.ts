@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { WebhookEvent as PrismaWebhookEvent } from '../../../../generated/prisma/client.js';
 import { PrismaService } from '../../../shared/prisma.service.js';
 import { WebhookEvent } from '../../domain/entities/webhook-event.entity.js';
 import { WebhookEventRepository } from '../../domain/repositories/webhook-event.repository.js';
@@ -33,7 +34,7 @@ export class PrismaWebhookEventRepository extends WebhookEventRepository {
     return record ? this.toDomain(record) : null;
   }
 
-  private toDomain(record: any): WebhookEvent {
+  private toDomain(record: PrismaWebhookEvent): WebhookEvent {
     return new WebhookEvent({
       eventId: record.eventId,
       movementId: record.movementId,

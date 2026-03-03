@@ -6,12 +6,12 @@ import { CompanyBalanceRepository } from '../../domain/repositories/company-bala
 export class InMemoryCompanyBalanceRepository extends CompanyBalanceRepository {
   private companyBalance = new CompanyBalance();
 
-  async get(): Promise<CompanyBalance> {
-    return this.companyBalance;
+  get(): Promise<CompanyBalance> {
+    return Promise.resolve(this.companyBalance);
   }
 
-  async save(companyBalance: CompanyBalance): Promise<CompanyBalance> {
+  save(companyBalance: CompanyBalance): Promise<CompanyBalance> {
     this.companyBalance = companyBalance;
-    return companyBalance;
+    return Promise.resolve(companyBalance);
   }
 }

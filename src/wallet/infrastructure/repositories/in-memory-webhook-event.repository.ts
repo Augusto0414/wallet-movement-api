@@ -6,12 +6,12 @@ import { WebhookEventRepository } from '../../domain/repositories/webhook-event.
 export class InMemoryWebhookEventRepository extends WebhookEventRepository {
   private readonly events = new Map<string, WebhookEvent>();
 
-  async save(event: WebhookEvent): Promise<WebhookEvent> {
+  save(event: WebhookEvent): Promise<WebhookEvent> {
     this.events.set(event.eventId, event);
-    return event;
+    return Promise.resolve(event);
   }
 
-  async findByEventId(eventId: string): Promise<WebhookEvent | null> {
-    return this.events.get(eventId) ?? null;
+  findByEventId(eventId: string): Promise<WebhookEvent | null> {
+    return Promise.resolve(this.events.get(eventId) ?? null);
   }
 }

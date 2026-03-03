@@ -5,27 +5,27 @@ import { MovementType } from '../../domain/enums/movement-type.enum.js';
 export class CreateMovementDto {
   @IsString()
   @IsNotEmpty()
-  id: string;
+  id?: string;
 
   @IsString()
   @IsNotEmpty()
-  userId: string;
+  userId?: string;
 
   @IsString()
   @IsNotEmpty()
-  walletId: string;
+  walletId?: string;
 
   @IsEnum(MovementType)
-  type: MovementType;
+  type?: MovementType;
 
   @IsNumber()
   @Min(0.01)
-  amount: number;
+  amount?: number;
 
   @IsNumber()
   @Min(0)
-  cost: number;
+  cost?: number;
 
   @IsEnum(MovementStatus)
-  status: MovementStatus;
+  status?: MovementStatus;
 }

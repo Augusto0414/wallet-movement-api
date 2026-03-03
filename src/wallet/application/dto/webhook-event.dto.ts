@@ -13,28 +13,28 @@ import { MovementType } from '../../domain/enums/movement-type.enum.js';
 export class WebhookEventDto {
   @IsString()
   @IsNotEmpty()
-  eventId: string;
+  eventId?: string;
 
   @IsString()
   @IsNotEmpty()
-  movementId: string;
+  movementId?: string;
 
   @IsEnum(MovementType)
-  type: MovementType;
+  type?: MovementType;
 
   @IsNumber()
   @Min(0)
-  amount: number;
+  amount?: number;
 
   @IsNumber()
   @Min(0)
-  cost: number;
+  cost?: number;
 
   @IsEnum(MovementStatus)
-  status: MovementStatus;
+  status?: MovementStatus;
 
   @IsDateString()
-  processedAt: string;
+  processedAt?: string;
 
   @IsOptional()
   @IsString()

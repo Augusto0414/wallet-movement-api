@@ -6,12 +6,12 @@ import { WalletBalanceRepository } from '../../domain/repositories/wallet-balanc
 export class InMemoryWalletBalanceRepository extends WalletBalanceRepository {
   private readonly balances = new Map<string, WalletBalance>();
 
-  async findByWalletId(walletId: string): Promise<WalletBalance | null> {
-    return this.balances.get(walletId) ?? null;
+  findByWalletId(walletId: string): Promise<WalletBalance | null> {
+    return Promise.resolve(this.balances.get(walletId) ?? null);
   }
 
-  async save(walletBalance: WalletBalance): Promise<WalletBalance> {
+  save(walletBalance: WalletBalance): Promise<WalletBalance> {
     this.balances.set(walletBalance.walletId, walletBalance);
-    return walletBalance;
+    return Promise.resolve(walletBalance);
   }
 }

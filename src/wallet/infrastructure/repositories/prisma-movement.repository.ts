@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Movement as PrismaMovement } from '../../../../generated/prisma/client.js';
 import { PrismaService } from '../../../shared/prisma.service.js';
 import { Movement } from '../../domain/entities/movement.entity.js';
 import { MovementStatus } from '../../domain/enums/movement-status.enum.js';
@@ -47,7 +48,7 @@ export class PrismaMovementRepository extends MovementRepository {
     return records.map((r) => this.toDomain(r));
   }
 
-  private toDomain(record: any): Movement {
+  private toDomain(record: PrismaMovement): Movement {
     return new Movement({
       id: record.id,
       userId: record.userId,

@@ -1,7 +1,6 @@
-import {
-  BadRequestException,
-  NotFoundException,
-} from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
+import { WebhookEventDto } from '../../src/wallet/application/dto/webhook-event.dto.js';
+import { ProcessWebhookUseCase } from '../../src/wallet/application/use-cases/process-webhook.use-case.js';
 import { Movement } from '../../src/wallet/domain/entities/movement.entity.js';
 import { WalletBalance } from '../../src/wallet/domain/entities/wallet-balance.entity.js';
 import { MovementStatus } from '../../src/wallet/domain/enums/movement-status.enum.js';
@@ -10,8 +9,6 @@ import { InMemoryCompanyBalanceRepository } from '../../src/wallet/infrastructur
 import { InMemoryMovementRepository } from '../../src/wallet/infrastructure/repositories/in-memory-movement.repository.js';
 import { InMemoryWalletBalanceRepository } from '../../src/wallet/infrastructure/repositories/in-memory-wallet-balance.repository.js';
 import { InMemoryWebhookEventRepository } from '../../src/wallet/infrastructure/repositories/in-memory-webhook-event.repository.js';
-import { WebhookEventDto } from '../../src/wallet/application/dto/webhook-event.dto.js';
-import { ProcessWebhookUseCase } from '../../src/wallet/application/use-cases/process-webhook.use-case.js';
 
 describe('ProcessWebhookUseCase', () => {
   let useCase: ProcessWebhookUseCase;
