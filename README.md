@@ -146,6 +146,14 @@ Retrieve wallet balance.
 ### GET /company-balance
 Retrieve total company income from fees.
 
+## API Documentation (Swagger)
+
+The API documentation is available via Swagger UI. You can explore the endpoints and test them directly from the browser.
+
+- **URL**: `http://localhost:3000/api`
+
+---
+
 ## Business Rules
 
 | Rule | Detail |
