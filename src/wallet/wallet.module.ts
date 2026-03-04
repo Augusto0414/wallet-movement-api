@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { CreateMovementUseCase } from './application/use-cases/create-movement.use-case.js';
 import { GetCompanyBalanceUseCase } from './application/use-cases/get-company-balance.use-case.js';
 import { GetMovementUseCase } from './application/use-cases/get-movement.use-case.js';
+import { GetMovementsByWalletIdUseCase } from './application/use-cases/get-movements-by-wallet-id.use-case.js';
 import { GetWalletBalanceUseCase } from './application/use-cases/get-wallet-balance.use-case.js';
 import { ProcessWebhookUseCase } from './application/use-cases/process-webhook.use-case.js';
 import { CompanyBalanceRepository } from './domain/repositories/company-balance.repository.js';
@@ -21,7 +22,9 @@ import { WalletController } from './interfaces/wallet.controller.js';
     ProcessWebhookUseCase,
     GetMovementUseCase,
     GetWalletBalanceUseCase,
+    GetWalletBalanceUseCase,
     GetCompanyBalanceUseCase,
+    GetMovementsByWalletIdUseCase,
     {
       provide: MovementRepository,
       useClass: PrismaMovementRepository,
